@@ -464,9 +464,6 @@ def process_comments(
         logger.info(disapproval_reason)
         return False
 
-    if len(clarifai_comments) > 0:
-        selected_comments = clarifai_comments
-
     # smart commenting
     if comments and publish:
         # Check if InstaPy already commented on this post, it could be the
