@@ -2270,6 +2270,7 @@ class InstaPy:
         amount: int = 10,
         randomize: bool = False,
         media: str = None,
+        block_on_likes: bool = True
     ):
         """Likes some amounts of images for each usernames"""
         if self.aborting:
@@ -2302,12 +2303,16 @@ class InstaPy:
         not_valid_users = 0
 
         self.quotient_breach = False
-        self.block_on_likes = False
+        self.block_on_likes = block_on_likes
 
         for index, username in enumerate(usernames):
 
             if self.block_on_likes:
                 self.logger.info("Stop interaction, there is a block on like")
+                # remove cookie for next execution
+                workspace_in_use = get_workspace()
+                account = Settings.profile["name"]
+                os.remove(os.path.join(workspace_in_use["path"], "logs", account, f"{account}_cookie.pkl"))
                 break
 
             if self.quotient_breach:
