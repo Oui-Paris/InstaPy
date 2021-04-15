@@ -2302,8 +2302,14 @@ class InstaPy:
         not_valid_users = 0
 
         self.quotient_breach = False
+        self.block_on_likes = False
 
         for index, username in enumerate(usernames):
+
+            if self.block_on_likes:
+                self.logger.info("Stop interaction, there is a block on like")
+                break
+
             if self.quotient_breach:
                 # keep `quotient_breach` active to break the internal
                 # iterators of the caller
@@ -2504,6 +2510,7 @@ class InstaPy:
                                 already_liked += 1
 
                             elif msg == "block on likes":
+                                self.block_on_likes = True
                                 break
 
                             elif msg == "jumped":
